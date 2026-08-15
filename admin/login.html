@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Espace administrateur — NEXI ONE</title>
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo-nexi">
+      <div class="marque">Nexi Academy</div>
+      <h1>🔐 Espace administrateur</h1>
+    </div>
+
+    <div class="carte">
+      <div id="pastilleMode"></div>
+      <div id="zoneErreurAdmin"></div>
+      <form id="formAdmin">
+        <label for="motDePasse">Mot de passe</label>
+        <input type="password" id="motDePasse" autocomplete="off" />
+        <button type="submit" class="btn btn-jungle btn-large">Se connecter</button>
+      </form>
+      <p id="aideMdp" style="font-size:13px; opacity:0.7; margin-top:14px;"></p>
+    </div>
+
+    <a href="../index.html" class="lien-admin">← Retour à l'accueil enfant</a>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/api.js"></script>
+  <script>
+    const pastille = document.getElementById("pastilleMode");
+    const aide = document.getElementById("aideMdp");
+    if (NEXI_MODE_API) {
+      pastille.innerHTML = '<span class="mode-pastille mode-connecte">🟢 Connecté à Google Sheets</span>';
+      aide.textContent = "Le mot de passe est celui enregistré dans l'onglet Config de ta Google Sheet.";
+    } else {
+      pastille.innerHTML = '<span class="mode-pastille mode-demo">🟠 Mode démo local (données dans ce navigateur)</span>';
+      aide.textContent = "Mot de passe par défaut du mode démo : tresor2026";
+    }
+
+    document.getElementById("formAdmin").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const pwd = document.getElementById("motDePasse").value;
+      const btn = e.target.querySelector("button");
+      btn.disabled = true;
+      btn.textContent = "Vérification...";
+      try {
+        const ok = await nexiAdminLogin(pwd);
+        if (ok) {
+          sessionStorage.setItem("nexi_admin_mdp", pwd);
+          window.location.href = "dashboard.html";
+          return;
+        }
+        document.getElementById("zoneErreurAdmin").innerHTML = '<div class="erreur">Mot de passe incorrect.</div>';
+      } catch (err) {
+        document.getElementById("zoneErreurAdmin").innerHTML = '<div class="erreur">Impossible de contacter le serveur. Vérifie ta connexion.</div>';
+      }
+      btn.disabled = false;
+      btn.textContent = "Se connecter";
+    });
+  </script>
+</body>
+</html>

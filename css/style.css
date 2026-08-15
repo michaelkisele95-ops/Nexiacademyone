@@ -1,0 +1,223 @@
+/* =========================================================================
+   NEXI ONE — style visuel
+   Palette (inspirée de l'identité NEXI ACADEMY) :
+   --bg-fond #0d1140 / --bg-fond2 #070a28 (navy/indigo)
+   --violet #6c4fd6, --bleu #4a6ee0, --cyan #6ee7f5 (mascotte)
+   --or #f0b429 (accent doré NEXI ACADEMY)
+   Typo : "Baloo 2" (titres) + "Nunito" (texte) + "Caveat" (touche manuscrite)
+   ========================================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600;700&display=swap");
+
+:root {
+  --bg-fond: #0d1140;
+  --bg-fond2: #070a28;
+  --violet: #6c4fd6;
+  --bleu: #4a6ee0;
+  --cyan: #6ee7f5;
+  --or: #f0b429;
+  --or-clair: #ffd166;
+  --carte: #161b4a;
+  --carte-clair: #1d2359;
+  --blanc: #f5f6ff;
+  --vert: #34d399;
+  --rouge: #ff6b6b;
+  --radius: 22px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Nunito", sans-serif;
+  color: var(--blanc);
+  background:
+    radial-gradient(circle at 12% 15%, rgba(108,79,214,0.35) 0, transparent 45%),
+    radial-gradient(circle at 88% 80%, rgba(74,110,224,0.30) 0, transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(240,180,41,0.10) 0, transparent 40%),
+    linear-gradient(160deg, var(--bg-fond) 0%, var(--bg-fond2) 100%);
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(255,255,255,0.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 70% 20%, rgba(255,255,255,0.4) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(255,255,255,0.4) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 85% 60%, rgba(255,255,255,0.3) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 10% 85%, rgba(255,255,255,0.3) 50%, transparent 51%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, .titre-jeu { font-family: "Baloo 2", sans-serif; font-weight: 800; letter-spacing: 0.3px; }
+.manuscrite { font-family: "Caveat", cursive; font-weight: 700; }
+
+.wrap { max-width: 780px; margin: 0 auto; padding: 36px 20px 90px; position: relative; z-index: 1; }
+
+.logo-nexi { text-align: center; margin-bottom: 6px; }
+.logo-nexi .marque { font-family: "Baloo 2", sans-serif; font-weight: 800; letter-spacing: 2px; font-size: 13px; color: var(--or); text-transform: uppercase; }
+.logo-nexi h1 { font-size: 34px; margin: 4px 0 2px; background: linear-gradient(90deg, var(--cyan), var(--or-clair)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.logo-nexi .slogan { font-family: "Caveat", cursive; font-size: 20px; color: var(--or-clair); margin: 0 0 14px; }
+
+.carte {
+  background: linear-gradient(160deg, var(--carte-clair), var(--carte));
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ---- NexiBot ---- */
+.nexibot-zone { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+.nexibot-avatar { width: 64px; flex-shrink: 0; filter: drop-shadow(0 6px 14px rgba(108,79,214,0.5)); animation: flotter 3s ease-in-out infinite; }
+.nexibot-svg { width: 100%; height: 100%; }
+.nexibot-oeil { animation: cligner 4s ease-in-out infinite; }
+@keyframes flotter { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes cligner { 0%, 92%, 100% { r: 7; } 95% { r: 1; } }
+.nexibot-bulle {
+  background: var(--blanc);
+  color: var(--bg-fond);
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 15px;
+  position: relative;
+  flex: 1;
+  align-self: center;
+}
+.nexibot-bulle::before {
+  content: "";
+  position: absolute; left: -8px; top: 50%; transform: translateY(-50%);
+  border-width: 8px 10px 8px 0; border-style: solid;
+  border-color: transparent var(--blanc) transparent transparent;
+}
+.nexibot-content .nexibot-bulle { background: var(--vert); color: #06301f; }
+.nexibot-content .nexibot-bulle::before { border-color: transparent var(--vert) transparent transparent; }
+.nexibot-encourage .nexibot-bulle { background: var(--or-clair); color: #4a2f00; }
+.nexibot-encourage .nexibot-bulle::before { border-color: transparent var(--or-clair) transparent transparent; }
+
+label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--blanc); }
+
+input[type="text"], input[type="password"], input[type="number"], input[type="date"],
+textarea, select {
+  width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.12);
+  font-family: "Nunito", sans-serif; font-size: 16px; background: rgba(255,255,255,0.06);
+  color: var(--blanc); margin-bottom: 18px;
+}
+input::placeholder { color: rgba(245,246,255,0.4); }
+input:focus, textarea:focus, select:focus { outline: 3px solid var(--or); border-color: var(--or); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 15px 26px; border-radius: 999px; border: none;
+  font-family: "Baloo 2", sans-serif; font-weight: 700; font-size: 17px; cursor: pointer;
+  text-decoration: none; transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.35);
+}
+.btn:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,0.35); }
+.btn-principal { background: linear-gradient(90deg, var(--violet), var(--bleu)); color: #fff; }
+.btn-or { background: linear-gradient(90deg, var(--or), var(--or-clair)); color: #3a2600; }
+.btn-jungle { background: var(--vert); color: #06301f; }
+.btn-fantome { background: transparent; color: var(--blanc); box-shadow: none; border: 2px solid rgba(255,255,255,0.25); }
+.btn-large { width: 100%; padding: 17px; font-size: 18px; }
+.btn-petit { padding: 8px 14px; font-size: 14px; box-shadow: none; border-radius: 10px; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.erreur { background: rgba(255,107,107,0.15); border: 1px solid rgba(255,107,107,0.4); color: #ffb3b3; border-radius: 12px; padding: 12px 16px; font-weight: 700; margin-bottom: 16px; }
+.info { background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.4); color: #9df3d1; border-radius: 12px; padding: 12px 16px; font-weight: 700; margin-bottom: 16px; }
+
+.lien-admin { display: block; text-align: center; margin-top: 22px; color: rgba(245,246,255,0.55); font-size: 14px; text-decoration: none; }
+.lien-admin:hover { color: var(--blanc); }
+
+.compte-a-rebours { text-align: center; margin: 4px 0 20px; }
+.compte-a-rebours .etiquette { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--or-clair); font-weight: 800; }
+.compte-a-rebours .valeurs { display: flex; justify-content: center; gap: 10px; margin-top: 8px; }
+.compte-a-rebours .bloc-temps { background: rgba(255,255,255,0.06); border-radius: 12px; padding: 8px 12px; min-width: 56px; }
+.compte-a-rebours .bloc-temps b { display: block; font-family: "Baloo 2", sans-serif; font-size: 22px; }
+.compte-a-rebours .bloc-temps span { font-size: 11px; opacity: 0.7; }
+
+.serie-badge { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg, #ff8a3d, var(--or)); color: #3a1e00; font-family: "Baloo 2", sans-serif; font-weight: 800; padding: 8px 16px; border-radius: 999px; font-size: 15px; margin-bottom: 6px; }
+
+.sentier { display: flex; gap: 6px; justify-content: center; margin: 6px 0 24px; flex-wrap: wrap; }
+.etape { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; transition: all 0.2s ease; }
+.etape.faite { background: var(--vert); border-color: var(--vert); color: #06301f; }
+.etape.active { background: var(--or); border-color: var(--or); color: #3a2600; transform: scale(1.2); box-shadow: 0 0 14px rgba(240,180,41,0.7); }
+
+.minuteur-zone { display: flex; align-items: center; gap: 12px; justify-content: center; margin-bottom: 22px; }
+.sablier { font-size: 26px; }
+.barre-temps-fond { flex: 1; max-width: 280px; height: 16px; border-radius: 999px; background: rgba(255,255,255,0.1); overflow: hidden; }
+.barre-temps { height: 100%; background: linear-gradient(90deg, var(--vert), var(--cyan)); border-radius: 999px; transition: width 1s linear; }
+.barre-temps.urgence { background: linear-gradient(90deg, var(--rouge), #c0392b); animation: pulser 0.6s infinite; }
+@keyframes pulser { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+.question-texte { font-family: "Baloo 2", sans-serif; font-size: 22px; margin: 6px 0 22px; text-align: center; }
+.options { display: grid; gap: 12px; }
+.option { display: block; width: 100%; text-align: left; padding: 16px 18px; border-radius: 16px; border: 3px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: var(--blanc); font-family: "Nunito", sans-serif; font-weight: 700; font-size: 16px; cursor: pointer; transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease; }
+.option:hover:not(:disabled) { transform: translateX(4px) scale(1.01); border-color: var(--or); background: rgba(240,180,41,0.1); }
+.option.bonne { background: rgba(52,211,153,0.25); border-color: var(--vert); animation: rebondir 0.4s ease; }
+.option.mauvaise { background: rgba(255,107,107,0.2); border-color: var(--rouge); animation: secouer 0.3s ease; }
+.option:disabled { cursor: default; }
+@keyframes rebondir { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
+@keyframes secouer { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+.explication-bloc { margin-top: 16px; padding: 14px 16px; background: rgba(110,231,245,0.1); border: 1px solid rgba(110,231,245,0.3); border-radius: 14px; font-size: 14px; }
+
+.score-flottant { position: fixed; top: 16px; right: 16px; background: linear-gradient(90deg, var(--or), var(--or-clair)); color: #3a2600; font-family: "Baloo 2", sans-serif; font-weight: 800; padding: 10px 18px; border-radius: 999px; box-shadow: 0 6px 0 rgba(0,0,0,0.3); z-index: 5; }
+
+.coffre-final { text-align: center; }
+.coffre-final .icone { font-size: 76px; display: block; margin-bottom: 10px; animation: rebondirCoffre 0.6s ease; }
+@keyframes rebondirCoffre { 0% { transform: scale(0.5) rotate(-10deg); opacity: 0; } 60% { transform: scale(1.1) rotate(5deg); } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+.etoiles { font-size: 36px; letter-spacing: 8px; margin: 10px 0 18px; }
+.badge-niveau { display: inline-block; font-family: "Baloo 2", sans-serif; font-weight: 800; padding: 8px 20px; border-radius: 999px; margin-bottom: 14px; font-size: 15px; }
+.badge-or { background: linear-gradient(90deg, var(--or), var(--or-clair)); color: #3a2600; }
+.badge-argent { background: linear-gradient(90deg, #cfd8e3, #f0f4f8); color: #333; }
+.badge-bronze { background: linear-gradient(90deg, #c97a4a, #e2a06f); color: #3a2000; }
+
+.classement-ligne { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; background: rgba(255,255,255,0.04); }
+.classement-ligne .rang { font-family: "Baloo 2", sans-serif; font-weight: 800; width: 28px; text-align: center; }
+.classement-ligne.rang-1 { background: rgba(240,180,41,0.18); border: 1px solid rgba(240,180,41,0.4); }
+.classement-ligne.rang-2 { background: rgba(207,216,227,0.12); }
+.classement-ligne.rang-3 { background: rgba(201,122,74,0.15); }
+.classement-ligne .nom { flex: 1; font-weight: 700; }
+.classement-ligne .pct { font-family: "Baloo 2", sans-serif; font-weight: 800; color: var(--or-clair); }
+
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 15px; }
+th { font-family: "Baloo 2", sans-serif; color: var(--cyan); }
+.badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+.badge-actif { background: rgba(52,211,153,0.2); color: var(--vert); }
+.badge-inactif { background: rgba(255,107,107,0.15); color: #ffb3b3; }
+
+.onglets { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+.onglet { padding: 10px 18px; border-radius: 12px; border: 2px solid transparent; background: rgba(255,255,255,0.06); font-family: "Baloo 2", sans-serif; font-weight: 700; cursor: pointer; color: var(--blanc); }
+.onglet.actif-onglet { background: var(--carte-clair); border-color: var(--or); }
+
+.panneau { display: none; }
+.panneau.visible { display: block; }
+
+.ligne-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+@media (max-width: 560px) { .ligne-form { grid-template-columns: 1fr; } }
+
+.entete-admin { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+.entete-admin h1 { margin: 0; font-size: 24px; }
+
+.bloc-question { border: 2px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 16px; margin-bottom: 14px; background: rgba(255,255,255,0.03); }
+
+.mode-pastille { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px; }
+.mode-demo { background: rgba(255,107,107,0.15); color: #ffb3b3; }
+.mode-connecte { background: rgba(52,211,153,0.15); color: var(--vert); }
+
+.confetti { position: fixed; top: -10px; font-size: 20px; animation: tomber 2.6s linear forwards; z-index: 20; }
+@keyframes tomber { to { transform: translateY(105vh) rotate(360deg); opacity: 0.3; } }
+
+.chargement { text-align: center; padding: 30px; opacity: 0.8; }
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti, .barre-temps, .option, .btn, .nexibot-avatar, .nexibot-oeil, .coffre-final .icone { animation: none !important; transition: none !important; }
+}

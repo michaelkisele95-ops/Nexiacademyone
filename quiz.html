@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ton défi — NEXI ONE</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo-nexi">
+      <div class="marque">Nexi Academy</div>
+      <h1 id="titreAccueil">Salut !</h1>
+      <div id="classeBadge"></div>
+    </div>
+
+    <!-- Écran 1 : liste des défis + classement -->
+    <div class="carte" id="ecranListe">
+      <div id="serieZone"></div>
+      <div id="nexibotListe"></div>
+      <div id="listeDefis" class="chargement">Chargement des défis...</div>
+
+      <h3 style="margin-top:26px;">🏆 Tableau d'honneur</h3>
+      <div id="classementZone" class="chargement">Chargement...</div>
+
+      <a href="profil.html" class="btn btn-fantome btn-large" style="margin-top:16px;">📈 Voir mon profil</a>
+      <a href="index.html" class="btn btn-fantome btn-large" style="margin-top:10px;">Changer de code secret</a>
+    </div>
+
+    <!-- Écran 2 : jeu en cours -->
+    <div class="carte" id="ecranJeu" style="display:none;">
+      <div class="score-flottant" id="scoreFlottant">⭐ 0</div>
+      <div class="sentier" id="sentier"></div>
+      <div id="nexibotJeu"></div>
+      <div class="minuteur-zone">
+        <span class="sablier">⏳</span>
+        <div class="barre-temps-fond"><div class="barre-temps" id="barreTemps"></div></div>
+      </div>
+      <div id="matiereBadge"></div>
+      <div class="question-texte" id="texteQuestion"></div>
+      <div class="options" id="zoneOptions"></div>
+      <div id="explicationZone"></div>
+    </div>
+
+    <!-- Écran 3 : coffre final -->
+    <div class="carte coffre-final" id="ecranFin" style="display:none;">
+      <span class="icone">🏆</span>
+      <h2>Défi terminé !</h2>
+      <div id="badgeNiveau"></div>
+      <p id="texteResultat"></p>
+      <div class="etoiles" id="etoilesFinales"></div>
+      <div id="nexibotFin"></div>
+      <a href="profil.html" class="btn btn-fantome btn-large" style="margin-top:10px;">📈 Voir mon profil</a>
+      <a href="quiz.html" class="btn btn-or btn-large" style="margin-top:10px;">Voir un autre défi</a>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/nexibot.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

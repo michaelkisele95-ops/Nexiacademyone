@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NEXI ONE — Ton défi t'attend !</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo-nexi">
+      <div class="marque">Nexi Academy</div>
+      <h1>NEXI ONE</h1>
+      <div class="slogan">Teach yourself.</div>
+    </div>
+
+    <div class="carte">
+      <div id="nexibotAccueil"></div>
+      <div id="compteARebours" class="compte-a-rebours"></div>
+      <div id="zoneErreur"></div>
+      <form id="formIdentifiant">
+        <label for="identifiant">Mon code secret</label>
+        <input type="text" id="identifiant" placeholder="Ex : LEO123" autocomplete="off" />
+        <button type="submit" class="btn btn-principal btn-large">Rejoindre mon défi ⚡</button>
+      </form>
+    </div>
+
+    <a href="admin/login.html" class="lien-admin">Espace administrateur</a>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/nexibot.js"></script>
+  <script src="js/child.js"></script>
+</body>
+</html>

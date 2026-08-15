@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tableau de bord — NEXI ONE</title>
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="entete-admin">
+      <h1>🗝️ Tableau de bord NEXI ONE</h1>
+      <div>
+        <a href="../index.html" class="btn btn-fantome btn-petit">Voir le site enfant</a>
+        <button class="btn btn-fantome btn-petit" onclick="deconnexionAdmin()">Se déconnecter</button>
+      </div>
+    </div>
+
+    <div id="pastilleMode"></div>
+
+    <div class="onglets">
+      <button class="onglet actif-onglet" data-onglet="enfants">👦 Enfants</button>
+      <button class="onglet" data-onglet="defis">📜 Défis</button>
+      <button class="onglet" data-onglet="resultats">🏆 Résultats</button>
+      <button class="onglet" data-onglet="reglages">⚙️ Réglages</button>
+    </div>
+
+    <!-- ONGLET ENFANTS -->
+    <div class="carte panneau visible" id="panneau-enfants">
+      <h2>Ajouter un enfant</h2>
+      <div id="erreurEnfant"></div>
+      <form id="formAjoutEnfant">
+        <div class="ligne-form">
+          <div><label for="nomEnfant">Prénom</label><input type="text" id="nomEnfant" required /></div>
+          <div><label for="identifiantEnfant">Identifiant (code secret)</label><input type="text" id="identifiantEnfant" required placeholder="Ex : LEO123" /></div>
+        </div>
+        <div class="ligne-form">
+          <div><label for="classeEnfant">Classe</label><select id="classeEnfant"></select></div>
+          <div><label for="finAbonnement">Fin d'abonnement (indicatif)</label><input type="date" id="finAbonnement" /></div>
+        </div>
+        <button type="submit" class="btn btn-principal">Ajouter l'enfant</button>
+      </form>
+
+      <h2 style="margin-top:28px;">Enfants inscrits</h2>
+      <p style="font-size:13px; opacity:0.7;">💡 En mode connecté, tu peux aussi ajouter des enfants directement dans l'onglet "Enfants" de ta Google Sheet.</p>
+      <table><thead><tr><th>Prénom</th><th>Identifiant</th><th>Classe</th><th>Statut</th><th>Actions</th></tr></thead>
+        <tbody id="tableauEnfants"><tr><td colspan="5" class="chargement">Chargement...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- ONGLET DEFIS -->
+    <div class="carte panneau" id="panneau-defis">
+      <h2>Créer un défi</h2>
+      <form id="formDefi">
+        <div class="ligne-form">
+          <div><label for="titreDefi">Titre du défi</label><input type="text" id="titreDefi" required placeholder="Ex : Défi Sciences & Logique" /></div>
+          <div><label for="classeDefi">Classe concernée</label><select id="classeDefi"></select></div>
+        </div>
+        <div class="ligne-form">
+          <div><label for="tempsDefi">Temps par défaut / question (s)</label><input type="number" id="tempsDefi" value="20" min="5" max="180" required /></div>
+          <div><label for="semaineDefi">Semaine (optionnel)</label><input type="text" id="semaineDefi" placeholder="S1" /></div>
+        </div>
+
+        <label>Questions</label>
+        <p style="font-size:13px; opacity:0.7; margin-top:-6px;">
+          Tu peux régler un temps différent par question (ex : 15s en logique, 60s en résolution de problème).
+          Laisse vide pour reprendre le temps par défaut du défi.
+        </p>
+        <div id="zoneQuestionsForm"></div>
+        <button type="button" class="btn btn-fantome btn-petit" onclick="ajouterBlocQuestion()">+ Ajouter une question</button>
+
+        <div style="margin-top:20px;"><button type="submit" class="btn btn-principal">Enregistrer le défi</button></div>
+      </form>
+
+      <h2 style="margin-top:32px;">Importer depuis un fichier CSV</h2>
+      <p style="font-size:14px; opacity:0.85;">
+        Modèle : <code>data/modele-questions.csv</code> (colonnes : question, 4 options, index de la bonne
+        réponse, explication, matière, temps en secondes).
+      </p>
+      <div class="ligne-form">
+        <div><label for="titreImport">Titre du défi importé</label><input type="text" id="titreImport" placeholder="Ex : Défi semaine 2" /></div>
+        <div><label for="classeImport">Classe concernée</label><select id="classeImport"></select></div>
+      </div>
+      <label for="tempsImport">Temps par défaut / question (s)</label>
+      <input type="number" id="tempsImport" value="20" min="5" max="180" style="max-width:140px;" />
+      <input type="file" id="fichierCSV" accept=".csv" style="margin-top:6px;" />
+      <button class="btn btn-or" onclick="importerCSV()" type="button" style="margin-top:10px;">Importer</button>
+
+      <h2 style="margin-top:32px;">Défis existants</h2>
+      <table><thead><tr><th>Titre</th><th>Classe</th><th>Questions</th><th>Statut</th><th>Actions</th></tr></thead>
+        <tbody id="tableauDefis"><tr><td colspan="5" class="chargement">Chargement...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- ONGLET RESULTATS -->
+    <div class="carte panneau" id="panneau-resultats">
+      <h2>Résultats des enfants</h2>
+      <table><thead><tr><th>Date</th><th>Enfant</th><th>Défi</th><th>Score</th></tr></thead>
+        <tbody id="tableauResultats"><tr><td colspan="4" class="chargement">Chargement...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- ONGLET REGLAGES -->
+    <div class="carte panneau" id="panneau-reglages">
+      <h2>Changer le mot de passe administrateur</h2>
+      <div id="erreurReglages"></div>
+      <form id="formMotDePasse">
+        <label for="nouveauMdp">Nouveau mot de passe</label>
+        <input type="password" id="nouveauMdp" required minlength="4" />
+        <button type="submit" class="btn btn-jungle">Enregistrer</button>
+      </form>
+      <p style="font-size:13px; opacity:0.7; margin-top:14px;">
+        En mode connecté, ce mot de passe est stocké dans l'onglet "Config" de ta Google Sheet.
+      </p>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>
